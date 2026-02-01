@@ -1,0 +1,39 @@
+{
+  "autopilot": {
+    "activate": ["active l'autopilote", "autopilote on", "allume l'autopilote"],
+    "deactivate": ["désactive l'autopilote", "autopilote off", "éteins l'autopilote"],
+    "altitude_hold": ["maintien altitude", "altitude hold", "garde l'altitude"],
+    "heading_hold": ["maintien cap", "heading hold", "garde le cap"],
+    "nav_mode": ["mode navigation", "nav mode", "suis la navigation"],
+    "approach_mode": ["mode approche", "approach mode", "approche"]
+  },
+  "lights": {
+    "beacon": ["allume beacon", "beacon on", "éteins beacon", "beacon off"],
+    "strobe": ["allume strobe", "strobe on", "éteins strobe", "strobe off"],
+    "nav": ["allume navigation", "nav lights on", "éteins navigation", "nav lights off"],
+    "landing": ["allume atterrissage", "landing lights on", "éteins atterrissage", "landing lights off"],
+    "taxi": ["allume taxi", "taxi lights on", "éteins taxi", "taxi lights off"],
+    "all_on": ["allume toutes les lumières", "all lights on"],
+    "all_off": ["éteins toutes les lumières", "all lights off"]
+  },
+  "gear": {
+    "down": ["sors le train", "train down", "descends le train"],
+    "up": ["rentre le train", "train up", "monte le train"]
+  },
+  "flaps": {
+    "0": ["volets zéro", "flaps up", "rentre les volets"],
+    "25": ["volets vingt-cinq", "flaps vingt-cinq pourcent", "volets 25"],
+    "50": ["volets cinquante", "flaps cinquante pourcent", "volets 50"],
+    "100": ["volets cent", "flaps full", "volets complets", "volets 100"]
+  },
+  "radio": {
+    "com1": ["change com un", "fréquence com un", "com 1"],
+    "com2": ["change com deux", "fréquence com deux", "com 2"],
+    "nav1": ["change nav un", "fréquence nav un", "nav 1"],
+    "nav2": ["change nav deux", "fréquence nav deux", "nav 2"]
+  },
+  "general": {
+    "help": ["aide", "help", "qu'est-ce que tu peux faire"],
+    "status": ["statut", "état", "status", "où en sommes-nous"]
+  }
+}

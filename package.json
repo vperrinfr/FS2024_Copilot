@@ -1,0 +1,29 @@
+{
+  "name": "msfs-copilot-assistant",
+  "version": "1.0.0",
+  "description": "Assistant copilote pour Microsoft Flight Simulator 2024 avec commandes vocales et interface web",
+  "main": "src/server/index.js",
+  "scripts": {
+    "start": "node src/server/index.js",
+    "dev": "node --watch src/server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "msfs",
+    "msfs2024",
+    "flight-simulator",
+    "simconnect",
+    "copilot",
+    "voice-control"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "node-simconnect": "^4.0.0",
+    "ws": "^8.19.0"
+  }
+}

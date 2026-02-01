@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSFS 2024 Copilot Assistant</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>✈️ MSFS 2024 Copilot Assistant</h1>
+            <div class="connection-status">
+                <span class="status-indicator" id="simconnect-status"></span>
+                <span id="status-text">Connexion...</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Voice Control Section -->
+            <section class="voice-section card">
+                <h2>🎤 Commande Vocale</h2>
+                <div class="voice-controls">
+                    <button id="voice-btn" class="btn btn-primary btn-large">
+                        <span class="mic-icon">🎤</span>
+                        <span id="voice-btn-text">Appuyez pour parler</span>
+                    </button>
+                    <div id="voice-feedback" class="voice-feedback"></div>
+                    <div id="voice-transcript" class="voice-transcript"></div>
+                </div>
+                <div class="voice-help">
+                    <p><strong>Exemples de commandes :</strong></p>
+                    <ul>
+                        <li>"Active l'autopilote"</li>
+                        <li>"Monte à 10000 pieds"</li>
+                        <li>"Allume les lumières d'atterrissage"</li>
+                        <li>"Sors le train"</li>
+                        <li>"Volets 25 pourcent"</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Cockpit State Dashboard -->
+            <section class="dashboard card">
+                <h2>📊 État du Cockpit</h2>
+                <div class="dashboard-grid">
+                    <!-- Aircraft Info -->
+                    <div class="dashboard-item">
+                        <h3>Avion</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="label">Altitude:</span>
+                                <span class="value" id="altitude">0 ft</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Cap:</span>
+                                <span class="value" id="heading">0°</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Vitesse:</span>
+                                <span class="value" id="airspeed">0 kts</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Vario:</span>
+                                <span class="value" id="vertical-speed">0 fpm</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Autopilot Status -->
+                    <div class="dashboard-item">
+                        <h3>Autopilote</h3>
+                        <div class="status-grid">
+                            <div class="status-item">
+                                <span class="label">Master:</span>
+                                <span class="indicator" id="ap-master">OFF</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="label">Alt Hold:</span>
+                                <span class="indicator" id="ap-alt">OFF</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="label">Hdg Hold:</span>
+                                <span class="indicator" id="ap-hdg">OFF</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="label">Nav Mode:</span>
+                                <span class="indicator" id="ap-nav">OFF</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lights Status -->
+                    <div class="dashboard-item">
+                        <h3>Lumières</h3>
+                        <div class="status-grid">
+                            <div class="status-item">
+                                <span class="label">Beacon:</span>
+                                <span class="indicator" id="light-beacon">OFF</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="label">Strobe:</span>
+                                <span class="indicator" id="light-strobe">OFF</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="label">Nav:</span>
+                                <span class="indicator" id="light-nav">OFF</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="label">Landing:</span>
+                                <span class="indicator" id="light-landing">OFF</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="label">Taxi:</span>
+                                <span class="indicator" id="light-taxi">OFF</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gear & Flaps -->
+                    <div class="dashboard-item">
+                        <h3>Train & Volets</h3>
+                        <div class="status-grid">
+                            <div class="status-item">
+                                <span class="label">Train:</span>
+                                <span class="indicator" id="gear-status">UP</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="label">Volets:</span>
+                                <span class="indicator" id="flaps-status">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Control Panels -->
+            <div class="control-panels">
+                <!-- Autopilot Controls -->
+                <section class="control-panel card">
+                    <h2>🤖 Autopilote</h2>
+                    <div class="control-grid">
+                        <button class="btn btn-control" onclick="toggleAutopilot()">
+                            Toggle AP
+                        </button>
+                        <button class="btn btn-control" onclick="toggleNavMode()">
+                            Nav Mode
+                        </button>
+                        <button class="btn btn-control" onclick="toggleApproachMode()">
+                            Approach
+                        </button>
+                        <div class="input-group">
+                            <input type="number" id="altitude-input" placeholder="Altitude (ft)" min="0" max="50000" step="100">
+                            <button class="btn btn-control" onclick="setAltitude()">Set Alt</button>
+                        </div>
+                        <div class="input-group">
+                            <input type="number" id="heading-input" placeholder="Cap (°)" min="0" max="360" step="1">
+                            <button class="btn btn-control" onclick="setHeading()">Set Hdg</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Lights Controls -->
+                <section class="control-panel card">
+                    <h2>💡 Lumières</h2>
+                    <div class="control-grid">
+                        <button class="btn btn-control" onclick="toggleLight('beacon')">Beacon</button>
+                        <button class="btn btn-control" onclick="toggleLight('strobe')">Strobe</button>
+                        <button class="btn btn-control" onclick="toggleLight('nav')">Nav</button>
+                        <button class="btn btn-control" onclick="toggleLight('landing')">Landing</button>
+                        <button class="btn btn-control" onclick="toggleLight('taxi')">Taxi</button>
+                        <button class="btn btn-success" onclick="allLightsOn()">All ON</button>
+                        <button class="btn btn-danger" onclick="allLightsOff()">All OFF</button>
+                    </div>
+                </section>
+
+                <!-- Gear & Flaps Controls -->
+                <section class="control-panel card">
+                    <h2>⚙️ Train & Volets</h2>
+                    <div class="control-grid">
+                        <button class="btn btn-control" onclick="toggleGear()">Toggle Gear</button>
+                        <button class="btn btn-control" onclick="setGearDown()">Gear Down</button>
+                        <button class="btn btn-control" onclick="setGearUp()">Gear Up</button>
+                        <button class="btn btn-control" onclick="setFlaps(0)">Flaps 0%</button>
+                        <button class="btn btn-control" onclick="setFlaps(25)">Flaps 25%</button>
+                        <button class="btn btn-control" onclick="setFlaps(50)">Flaps 50%</button>
+                        <button class="btn btn-control" onclick="setFlaps(100)">Flaps 100%</button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Activity Log -->
+            <section class="activity-log card">
+                <h2>📝 Journal d'Activité</h2>
+                <div id="activity-log" class="log-content"></div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>MSFS 2024 Copilot Assistant - Contrôlez votre cockpit avec votre voix et des boutons</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/websocket.js"></script>
+    <script src="js/voice.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
