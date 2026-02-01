@@ -88,9 +88,7 @@ class SimConnectManager {
     if (!this.handle) return;
 
     try {
-      // Request various aircraft data
-      // Note: node-simconnect API may vary, this is a simplified version
-      // You may need to adjust based on the actual API
+      // Request various aircraft data using the correct API
       this.handle.requestDataOnSimObject([
         'AUTOPILOT MASTER',
         'AUTOPILOT ALTITUDE LOCK',
@@ -111,7 +109,6 @@ class SimConnectManager {
       ]);
     } catch (error) {
       // Silently fail if data request fails
-      // console.error('Error requesting aircraft data:', error.message);
     }
   }
 
@@ -120,7 +117,6 @@ class SimConnectManager {
 
     try {
       // Update cockpit state based on received data
-      // This is a simplified version - adjust based on actual data structure
       if (data['AUTOPILOT MASTER'] !== undefined) {
         this.cockpitState.autopilot.master = data['AUTOPILOT MASTER'] === 1;
       }
@@ -180,12 +176,12 @@ class SimConnectManager {
     }
   }
 
-  // Autopilot actions
+  // Autopilot actions - Using correct API for node-simconnect 4.0.0
   toggleAutopilot() {
     if (!this.handle) return false;
     try {
-      // Use the correct method for node-simconnect
-      this.handle.sendEventToSimulator('AP_MASTER', 0);
+      // node-simconnect 4.0.0 uses different method
+      this.handle.set('K:AP_MASTER', 0);
       return true;
     } catch (error) {
       console.error('Error toggling autopilot:', error.message);
@@ -196,8 +192,8 @@ class SimConnectManager {
   setAltitudeHold(altitude) {
     if (!this.handle) return false;
     try {
-      this.handle.sendEventToSimulator('AP_ALT_VAR_SET_ENGLISH', altitude);
-      this.handle.sendEventToSimulator('AP_ALT_HOLD_ON', 0);
+      this.handle.set('K:AP_ALT_VAR_SET_ENGLISH', altitude);
+      this.handle.set('K:AP_ALT_HOLD_ON', 0);
       return true;
     } catch (error) {
       console.error('Error setting altitude hold:', error.message);
@@ -208,8 +204,8 @@ class SimConnectManager {
   setHeadingHold(heading) {
     if (!this.handle) return false;
     try {
-      this.handle.sendEventToSimulator('HEADING_BUG_SET', heading);
-      this.handle.sendEventToSimulator('AP_HDG_HOLD_ON', 0);
+      this.handle.set('K:HEADING_BUG_SET', heading);
+      this.handle.set('K:AP_HDG_HOLD_ON', 0);
       return true;
     } catch (error) {
       console.error('Error setting heading hold:', error.message);
@@ -220,7 +216,7 @@ class SimConnectManager {
   toggleNavMode() {
     if (!this.handle) return false;
     try {
-      this.handle.sendEventToSimulator('AP_NAV1_HOLD', 0);
+      this.handle.set('K:AP_NAV1_HOLD', 0);
       return true;
     } catch (error) {
       console.error('Error toggling nav mode:', error.message);
@@ -231,7 +227,7 @@ class SimConnectManager {
   toggleApproachMode() {
     if (!this.handle) return false;
     try {
-      this.handle.sendEventToSimulator('AP_APR_HOLD', 0);
+      this.handle.set('K:AP_APR_HOLD', 0);
       return true;
     } catch (error) {
       console.error('Error toggling approach mode:', error.message);
@@ -243,17 +239,17 @@ class SimConnectManager {
   toggleLight(lightType) {
     if (!this.handle) return false;
     const lightEvents = {
-      beacon: 'TOGGLE_BEACON_LIGHTS',
-      strobe: 'STROBES_TOGGLE',
-      nav: 'TOGGLE_NAV_LIGHTS',
-      landing: 'LANDING_LIGHTS_TOGGLE',
-      taxi: 'TOGGLE_TAXI_LIGHTS'
+      beacon: 'K:TOGGLE_BEACON_LIGHTS',
+      strobe: 'K:STROBES_TOGGLE',
+      nav: 'K:TOGGLE_NAV_LIGHTS',
+      landing: 'K:LANDING_LIGHTS_TOGGLE',
+      taxi: 'K:TOGGLE_TAXI_LIGHTS'
     };
 
     try {
       const eventName = lightEvents[lightType];
       if (eventName) {
-        this.handle.sendEventToSimulator(eventName, 0);
+        this.handle.set(eventName, 0);
         return true;
       }
       return false;
@@ -267,7 +263,7 @@ class SimConnectManager {
   toggleGear() {
     if (!this.handle) return false;
     try {
-      this.handle.sendEventToSimulator('GEAR_TOGGLE', 0);
+      this.handle.set('K:GEAR_TOGGLE', 0);
       return true;
     } catch (error) {
       console.error('Error toggling gear:', error.message);
@@ -278,7 +274,7 @@ class SimConnectManager {
   setGearDown() {
     if (!this.handle) return false;
     try {
-      this.handle.sendEventToSimulator('GEAR_DOWN', 0);
+      this.handle.set('K:GEAR_DOWN', 0);
       return true;
     } catch (error) {
       console.error('Error setting gear down:', error.message);
@@ -289,7 +285,7 @@ class SimConnectManager {
   setGearUp() {
     if (!this.handle) return false;
     try {
-      this.handle.sendEventToSimulator('GEAR_UP', 0);
+      this.handle.set('K:GEAR_UP', 0);
       return true;
     } catch (error) {
       console.error('Error setting gear up:', error.message);
@@ -303,7 +299,7 @@ class SimConnectManager {
     try {
       // Convert percentage to flaps index (0-4 typically)
       const flapsIndex = Math.round((position / 100) * 4);
-      this.handle.sendEventToSimulator('FLAPS_SET', flapsIndex);
+      this.handle.set('K:FLAPS_SET', flapsIndex);
       return true;
     } catch (error) {
       console.error('Error setting flaps:', error.message);
@@ -314,7 +310,7 @@ class SimConnectManager {
   increaseFlaps() {
     if (!this.handle) return false;
     try {
-      this.handle.sendEventToSimulator('FLAPS_INCR', 0);
+      this.handle.set('K:FLAPS_INCR', 0);
       return true;
     } catch (error) {
       console.error('Error increasing flaps:', error.message);
@@ -325,7 +321,7 @@ class SimConnectManager {
   decreaseFlaps() {
     if (!this.handle) return false;
     try {
-      this.handle.sendEventToSimulator('FLAPS_DECR', 0);
+      this.handle.set('K:FLAPS_DECR', 0);
       return true;
     } catch (error) {
       console.error('Error decreasing flaps:', error.message);
@@ -337,10 +333,10 @@ class SimConnectManager {
   setRadioFrequency(radio, frequency) {
     if (!this.handle) return false;
     const radioEvents = {
-      com1: 'COM_RADIO_SET',
-      com2: 'COM2_RADIO_SET',
-      nav1: 'NAV1_RADIO_SET',
-      nav2: 'NAV2_RADIO_SET'
+      com1: 'K:COM_RADIO_SET',
+      com2: 'K:COM2_RADIO_SET',
+      nav1: 'K:NAV1_RADIO_SET',
+      nav2: 'K:NAV2_RADIO_SET'
     };
 
     try {
@@ -348,7 +344,7 @@ class SimConnectManager {
       if (eventName) {
         // Convert frequency to BCD format (e.g., 118.50 -> 11850)
         const bcdFreq = Math.round(frequency * 100);
-        this.handle.sendEventToSimulator(eventName, bcdFreq);
+        this.handle.set(eventName, bcdFreq);
         return true;
       }
       return false;
