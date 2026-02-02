@@ -6,7 +6,7 @@ L'application est construite avec une architecture client-serveur moderne utilis
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Navigateur Web (Client)                   │
+│                    Navigateur Web (Client)                  │
 │  ┌────────────────┐  ┌──────────────┐  ┌─────────────────┐ │
 │  │  Interface Web │  │ Web Speech   │  │ WebSocket Client│ │
 │  │  (HTML/CSS/JS) │  │     API      │  │                 │ │

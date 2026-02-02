@@ -296,6 +296,51 @@ app.post('/api/voice/command', (req, res) => {
   });
 });
 
+// METAR proxy endpoint to avoid CORS issues
+// Using METAR-TAF.com API - Free, no authentication required
+app.get('/api/metar/:icao', async (req, res) => {
+  const { icao } = req.params;
+  
+  if (!icao || icao.length !== 4) {
+    return res.status(400).json({ error: 'Invalid ICAO code (4 letters required)' });
+  }
+
+  try {
+    const https = require('https');
+    // METAR-TAF.com API - completely free, no auth needed
+    const url = `https://metar-taf.com/api/metar/${icao.toUpperCase()}`;
+    
+    https.get(url, (apiRes) => {
+      let data = '';
+      
+      apiRes.on('data', (chunk) => {
+        data += chunk;
+      });
+      
+      apiRes.on('end', () => {
+        try {
+          const jsonData = JSON.parse(data);
+          
+          if (jsonData && jsonData.metar) {
+            res.json(jsonData);
+          } else {
+            res.status(404).json({ error: 'No METAR data found for this airport' });
+          }
+        } catch (error) {
+          console.error('Failed to parse METAR data:', error);
+          res.status(500).json({ error: 'Failed to parse METAR data' });
+        }
+      });
+    }).on('error', (error) => {
+      console.error('METAR fetch error:', error);
+      res.status(500).json({ error: 'Failed to fetch METAR data' });
+    });
+  } catch (error) {
+    console.error('METAR endpoint error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Server error:', err);

@@ -4,7 +4,16 @@ class VoiceRecognition {
         this.recognition = null;
         this.isListening = false;
         this.commands = null;
+        this.currentLang = 'fr';
         this.initRecognition();
+        this.loadCommands();
+    }
+
+    setLanguage(lang) {
+        this.currentLang = lang;
+        if (this.recognition) {
+            this.recognition.lang = lang === 'fr' ? 'fr-FR' : 'en-US';
+        }
         this.loadCommands();
     }
 
@@ -19,7 +28,7 @@ class VoiceRecognition {
         }
 
         this.recognition = new SpeechRecognition();
-        this.recognition.lang = 'fr-FR';
+        this.recognition.lang = this.currentLang === 'fr' ? 'fr-FR' : 'en-US';
         this.recognition.continuous = false;
         this.recognition.interimResults = false;
         this.recognition.maxAlternatives = 1;
@@ -67,7 +76,8 @@ class VoiceRecognition {
 
     async loadCommands() {
         try {
-            const response = await fetch('/config/commands.json');
+            const commandFile = this.currentLang === 'fr' ? '/config/commands.json' : '/config/commands-en.json';
+            const response = await fetch(commandFile);
             this.commands = await response.json();
             console.log('Voice commands loaded:', this.commands);
         } catch (error) {

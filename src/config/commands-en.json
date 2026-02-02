@@ -1,0 +1,39 @@
+{
+  "autopilot": {
+    "activate": ["activate autopilot", "autopilot on", "turn on autopilot", "engage autopilot"],
+    "deactivate": ["deactivate autopilot", "autopilot off", "turn off autopilot", "disengage autopilot"],
+    "altitude_hold": ["altitude hold", "hold altitude", "maintain altitude"],
+    "heading_hold": ["heading hold", "hold heading", "maintain heading"],
+    "nav_mode": ["navigation mode", "nav mode", "follow navigation"],
+    "approach_mode": ["approach mode", "approach", "final approach"]
+  },
+  "lights": {
+    "beacon": ["turn on beacon", "beacon on", "turn off beacon", "beacon off"],
+    "strobe": ["turn on strobe", "strobe on", "turn off strobe", "strobe off"],
+    "nav": ["turn on navigation lights", "nav lights on", "turn off navigation lights", "nav lights off"],
+    "landing": ["turn on landing lights", "landing lights on", "turn off landing lights", "landing lights off"],
+    "taxi": ["turn on taxi lights", "taxi lights on", "turn off taxi lights", "taxi lights off"],
+    "all_on": ["turn on all lights", "all lights on"],
+    "all_off": ["turn off all lights", "all lights off"]
+  },
+  "gear": {
+    "down": ["gear down", "lower gear", "extend gear"],
+    "up": ["gear up", "raise gear", "retract gear"]
+  },
+  "flaps": {
+    "0": ["flaps zero", "flaps up", "retract flaps"],
+    "25": ["flaps twenty five", "flaps twenty five percent", "flaps 25"],
+    "50": ["flaps fifty", "flaps fifty percent", "flaps 50"],
+    "100": ["flaps one hundred", "flaps full", "full flaps", "flaps 100"]
+  },
+  "radio": {
+    "com1": ["change com one", "com one frequency", "com 1"],
+    "com2": ["change com two", "com two frequency", "com 2"],
+    "nav1": ["change nav one", "nav one frequency", "nav 1"],
+    "nav2": ["change nav two", "nav two frequency", "nav 2"]
+  },
+  "general": {
+    "help": ["help", "what can you do"],
+    "status": ["status", "state", "where are we"]
+  }
+}

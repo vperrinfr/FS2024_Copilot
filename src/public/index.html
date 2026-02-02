@@ -10,10 +10,16 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <h1>✈️ MSFS 2024 Copilot Assistant</h1>
-            <div class="connection-status">
-                <span class="status-indicator" id="simconnect-status"></span>
-                <span id="status-text">Connexion...</span>
+            <h1 data-i18n="title">✈️ MSFS 2024 Copilot Assistant</h1>
+            <div class="header-controls">
+                <div class="language-selector">
+                    <button class="lang-btn active" data-lang="fr" title="Français">🇫🇷 FR</button>
+                    <button class="lang-btn" data-lang="en" title="English">🇬🇧 EN</button>
+                </div>
+                <div class="connection-status">
+                    <span class="status-indicator" id="simconnect-status"></span>
+                    <span id="status-text" data-i18n="connecting">Connexion...</span>
+                </div>
             </div>
         </header>
 
@@ -21,7 +27,7 @@
         <main class="main-content">
             <!-- Voice Control Section -->
             <section class="voice-section card">
-                <h2>🎤 Commande Vocale</h2>
+                <h2 data-i18n="voiceControl">🎤 Commande Vocale</h2>
                 <div class="voice-controls">
                     <button id="voice-btn" class="btn btn-primary btn-large">
                         <span class="mic-icon">🎤</span>
@@ -31,39 +37,39 @@
                     <div id="voice-transcript" class="voice-transcript"></div>
                 </div>
                 <div class="voice-help">
-                    <p><strong>Exemples de commandes :</strong></p>
+                    <p><strong data-i18n="commandExamples">Exemples de commandes :</strong></p>
                     <ul>
-                        <li>"Active l'autopilote"</li>
-                        <li>"Monte à 10000 pieds"</li>
-                        <li>"Allume les lumières d'atterrissage"</li>
-                        <li>"Sors le train"</li>
-                        <li>"Volets 25 pourcent"</li>
+                        <li data-i18n="exampleActivateAP">"Active l'autopilote"</li>
+                        <li data-i18n="exampleClimbTo">"Monte à 10000 pieds"</li>
+                        <li data-i18n="exampleLandingLights">"Allume les lumières d'atterrissage"</li>
+                        <li data-i18n="exampleGearDown">"Sors le train"</li>
+                        <li data-i18n="exampleFlaps">"Volets 25 pourcent"</li>
                     </ul>
                 </div>
             </section>
 
             <!-- Cockpit State Dashboard -->
             <section class="dashboard card">
-                <h2>📊 État du Cockpit</h2>
+                <h2 data-i18n="cockpitState">📊 État du Cockpit</h2>
                 <div class="dashboard-grid">
                     <!-- Aircraft Info -->
                     <div class="dashboard-item">
-                        <h3>Avion</h3>
+                        <h3 data-i18n="aircraft">Avion</h3>
                         <div class="info-grid">
                             <div class="info-item">
-                                <span class="label">Altitude:</span>
+                                <span class="label" data-i18n="altitude">Altitude:</span>
                                 <span class="value" id="altitude">0 ft</span>
                             </div>
                             <div class="info-item">
-                                <span class="label">Cap:</span>
+                                <span class="label" data-i18n="heading">Cap:</span>
                                 <span class="value" id="heading">0°</span>
                             </div>
                             <div class="info-item">
-                                <span class="label">Vitesse:</span>
+                                <span class="label" data-i18n="airspeed">Vitesse:</span>
                                 <span class="value" id="airspeed">0 kts</span>
                             </div>
                             <div class="info-item">
-                                <span class="label">Vario:</span>
+                                <span class="label" data-i18n="verticalSpeed">Vario:</span>
                                 <span class="value" id="vertical-speed">0 fpm</span>
                             </div>
                         </div>
@@ -71,22 +77,22 @@
 
                     <!-- Autopilot Status -->
                     <div class="dashboard-item">
-                        <h3>Autopilote</h3>
+                        <h3 data-i18n="autopilot">Autopilote</h3>
                         <div class="status-grid">
                             <div class="status-item">
-                                <span class="label">Master:</span>
+                                <span class="label" data-i18n="master">Master:</span>
                                 <span class="indicator" id="ap-master">OFF</span>
                             </div>
                             <div class="status-item">
-                                <span class="label">Alt Hold:</span>
+                                <span class="label" data-i18n="altHold">Alt Hold:</span>
                                 <span class="indicator" id="ap-alt">OFF</span>
                             </div>
                             <div class="status-item">
-                                <span class="label">Hdg Hold:</span>
+                                <span class="label" data-i18n="hdgHold">Hdg Hold:</span>
                                 <span class="indicator" id="ap-hdg">OFF</span>
                             </div>
                             <div class="status-item">
-                                <span class="label">Nav Mode:</span>
+                                <span class="label" data-i18n="navMode">Nav Mode:</span>
                                 <span class="indicator" id="ap-nav">OFF</span>
                             </div>
                         </div>
@@ -94,26 +100,26 @@
 
                     <!-- Lights Status -->
                     <div class="dashboard-item">
-                        <h3>Lumières</h3>
+                        <h3 data-i18n="lights">Lumières</h3>
                         <div class="status-grid">
                             <div class="status-item">
-                                <span class="label">Beacon:</span>
+                                <span class="label" data-i18n="beacon">Beacon:</span>
                                 <span class="indicator" id="light-beacon">OFF</span>
                             </div>
                             <div class="status-item">
-                                <span class="label">Strobe:</span>
+                                <span class="label" data-i18n="strobe">Strobe:</span>
                                 <span class="indicator" id="light-strobe">OFF</span>
                             </div>
                             <div class="status-item">
-                                <span class="label">Nav:</span>
+                                <span class="label" data-i18n="nav">Nav:</span>
                                 <span class="indicator" id="light-nav">OFF</span>
                             </div>
                             <div class="status-item">
-                                <span class="label">Landing:</span>
+                                <span class="label" data-i18n="landing">Landing:</span>
                                 <span class="indicator" id="light-landing">OFF</span>
                             </div>
                             <div class="status-item">
-                                <span class="label">Taxi:</span>
+                                <span class="label" data-i18n="taxi">Taxi:</span>
                                 <span class="indicator" id="light-taxi">OFF</span>
                             </div>
                         </div>
@@ -121,15 +127,125 @@
 
                     <!-- Gear & Flaps -->
                     <div class="dashboard-item">
-                        <h3>Train & Volets</h3>
+                        <h3 data-i18n="gearFlaps">Train & Volets</h3>
                         <div class="status-grid">
                             <div class="status-item">
-                                <span class="label">Train:</span>
+                                <span class="label" data-i18n="gear">Train:</span>
                                 <span class="indicator" id="gear-status">UP</span>
                             </div>
                             <div class="status-item">
-                                <span class="label">Volets:</span>
+                                <span class="label" data-i18n="flaps">Volets:</span>
                                 <span class="indicator" id="flaps-status">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fuel & Engines Section -->
+            <section class="fuel-engines card">
+                <h2 data-i18n="fuelEngines">⛽ Carburant & Moteurs</h2>
+                
+                <div class="fuel-engines-grid">
+                    <!-- Fuel Panel -->
+                    <div class="fuel-panel">
+                        <h3 data-i18n="fuel">Carburant</h3>
+                        <div class="fuel-gauge">
+                            <div class="fuel-bar" id="fuel-bar"></div>
+                            <span class="fuel-percentage" id="fuel-percentage">0%</span>
+                        </div>
+                        <div class="fuel-info">
+                            <div class="info-item">
+                                <span class="label" data-i18n="quantity">Quantité:</span>
+                                <span class="value" id="fuel-quantity">0 / 0 gal</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label" data-i18n="weight">Poids:</span>
+                                <span class="value" id="fuel-weight">0 lbs</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label" data-i18n="consumption">Consommation:</span>
+                                <span class="value" id="fuel-flow">0 GPH</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label" data-i18n="endurance">Autonomie:</span>
+                                <span class="value" id="fuel-endurance">0h 0m</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Engines Panel -->
+                    <div class="engines-panel">
+                        <h3 data-i18n="engines">Moteurs</h3>
+                        <div id="engines-container">
+                            <!-- Engines will be dynamically generated by JavaScript -->
+                            <p class="no-data" data-i18n="waitingEngineData">En attente des données moteurs...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation & Weather Section with Tabs -->
+            <section class="nav-weather-section card">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="map" data-i18n="mapTab">🗺️ Carte</button>
+                    <button class="tab-btn" data-tab="metar" data-i18n="metarTab">🌤️ METAR</button>
+                </div>
+
+                <!-- Map Tab Content -->
+                <div class="tab-content active" id="map-tab">
+                    <div class="map-container">
+                        <div class="map-placeholder">
+                            <div class="map-info">
+                                <h3 data-i18n="mapTitle">📍 Carte de Navigation</h3>
+                                <p data-i18n="mapDescription">Visualisation de votre position et trajectoire</p>
+                                <div class="map-coordinates">
+                                    <div class="coord-item">
+                                        <span class="label" data-i18n="latitude">Latitude:</span>
+                                        <span class="value" id="map-latitude">0.0000°</span>
+                                    </div>
+                                    <div class="coord-item">
+                                        <span class="label" data-i18n="longitude">Longitude:</span>
+                                        <span class="value" id="map-longitude">0.0000°</span>
+                                    </div>
+                                    <div class="coord-item">
+                                        <span class="label" data-i18n="groundSpeed">Vitesse sol:</span>
+                                        <span class="value" id="map-ground-speed">0 kts</span>
+                                    </div>
+                                    <div class="coord-item">
+                                        <span class="label" data-i18n="track">Route:</span>
+                                        <span class="value" id="map-track">0°</span>
+                                    </div>
+                                </div>
+                                <div id="map-display" class="map-display">
+                                    <p class="map-note" data-i18n="mapNote">🗺️ Intégration carte interactive à venir</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- METAR Tab Content -->
+                <div class="tab-content" id="metar-tab">
+                    <div class="metar-container">
+                        <div class="metar-search">
+                            <h3 data-i18n="metarSearch">🔍 Recherche METAR</h3>
+                            <div class="search-group">
+                                <input type="text" id="icao-input" placeholder="ICAO (ex: LFPG, KJFK)" maxlength="4">
+                                <button class="btn btn-primary" onclick="fetchMetar()" data-i18n="searchBtn">Rechercher</button>
+                            </div>
+                        </div>
+                        
+                        <div class="metar-display" id="metar-display">
+                            <div class="metar-placeholder">
+                                <p data-i18n="metarPlaceholder">Entrez un code ICAO pour obtenir les informations météo</p>
+                            </div>
+                        </div>
+
+                        <div class="metar-nearby" id="metar-nearby">
+                            <h3 data-i18n="nearbyAirports">📍 Aéroports à proximité</h3>
+                            <div id="nearby-list" class="nearby-list">
+                                <p class="no-data" data-i18n="waitingPosition">En attente de la position...</p>
                             </div>
                         </div>
                     </div>
@@ -140,49 +256,49 @@
             <div class="control-panels">
                 <!-- Autopilot Controls -->
                 <section class="control-panel card">
-                    <h2>🤖 Autopilote</h2>
+                    <h2 data-i18n="autopilotControls">🤖 Autopilote</h2>
                     <div class="control-grid">
-                        <button class="btn btn-control" onclick="toggleAutopilot()">
+                        <button class="btn btn-control" onclick="toggleAutopilot()" data-i18n="toggleAP">
                             Toggle AP
                         </button>
-                        <button class="btn btn-control" onclick="toggleNavMode()">
+                        <button class="btn btn-control" onclick="toggleNavMode()" data-i18n="navModeBtn">
                             Nav Mode
                         </button>
-                        <button class="btn btn-control" onclick="toggleApproachMode()">
+                        <button class="btn btn-control" onclick="toggleApproachMode()" data-i18n="approach">
                             Approach
                         </button>
                         <div class="input-group">
                             <input type="number" id="altitude-input" placeholder="Altitude (ft)" min="0" max="50000" step="100">
-                            <button class="btn btn-control" onclick="setAltitude()">Set Alt</button>
+                            <button class="btn btn-control" onclick="setAltitude()" data-i18n="setAlt">Set Alt</button>
                         </div>
                         <div class="input-group">
                             <input type="number" id="heading-input" placeholder="Cap (°)" min="0" max="360" step="1">
-                            <button class="btn btn-control" onclick="setHeading()">Set Hdg</button>
+                            <button class="btn btn-control" onclick="setHeading()" data-i18n="setHdg">Set Hdg</button>
                         </div>
                     </div>
                 </section>
 
                 <!-- Lights Controls -->
                 <section class="control-panel card">
-                    <h2>💡 Lumières</h2>
+                    <h2 data-i18n="lightsControls">💡 Lumières</h2>
                     <div class="control-grid">
-                        <button class="btn btn-control" onclick="toggleLight('beacon')">Beacon</button>
-                        <button class="btn btn-control" onclick="toggleLight('strobe')">Strobe</button>
-                        <button class="btn btn-control" onclick="toggleLight('nav')">Nav</button>
-                        <button class="btn btn-control" onclick="toggleLight('landing')">Landing</button>
-                        <button class="btn btn-control" onclick="toggleLight('taxi')">Taxi</button>
-                        <button class="btn btn-success" onclick="allLightsOn()">All ON</button>
-                        <button class="btn btn-danger" onclick="allLightsOff()">All OFF</button>
+                        <button class="btn btn-control" onclick="toggleLight('beacon')" data-i18n="beacon">Beacon</button>
+                        <button class="btn btn-control" onclick="toggleLight('strobe')" data-i18n="strobe">Strobe</button>
+                        <button class="btn btn-control" onclick="toggleLight('nav')" data-i18n="nav">Nav</button>
+                        <button class="btn btn-control" onclick="toggleLight('landing')" data-i18n="landing">Landing</button>
+                        <button class="btn btn-control" onclick="toggleLight('taxi')" data-i18n="taxi">Taxi</button>
+                        <button class="btn btn-success" onclick="allLightsOn()" data-i18n="allOn">All ON</button>
+                        <button class="btn btn-danger" onclick="allLightsOff()" data-i18n="allOff">All OFF</button>
                     </div>
                 </section>
 
                 <!-- Gear & Flaps Controls -->
                 <section class="control-panel card">
-                    <h2>⚙️ Train & Volets</h2>
+                    <h2 data-i18n="gearFlapsControls">⚙️ Train & Volets</h2>
                     <div class="control-grid">
-                        <button class="btn btn-control" onclick="toggleGear()">Toggle Gear</button>
-                        <button class="btn btn-control" onclick="setGearDown()">Gear Down</button>
-                        <button class="btn btn-control" onclick="setGearUp()">Gear Up</button>
+                        <button class="btn btn-control" onclick="toggleGear()" data-i18n="toggleGear">Toggle Gear</button>
+                        <button class="btn btn-control" onclick="setGearDown()" data-i18n="gearDown">Gear Down</button>
+                        <button class="btn btn-control" onclick="setGearUp()" data-i18n="gearUp">Gear Up</button>
                         <button class="btn btn-control" onclick="setFlaps(0)">Flaps 0%</button>
                         <button class="btn btn-control" onclick="setFlaps(25)">Flaps 25%</button>
                         <button class="btn btn-control" onclick="setFlaps(50)">Flaps 50%</button>
@@ -193,18 +309,19 @@
 
             <!-- Activity Log -->
             <section class="activity-log card">
-                <h2>📝 Journal d'Activité</h2>
+                <h2 data-i18n="activityLog">📝 Journal d'Activité</h2>
                 <div id="activity-log" class="log-content"></div>
             </section>
         </main>
 
         <!-- Footer -->
         <footer class="footer">
-            <p>MSFS 2024 Copilot Assistant - Contrôlez votre cockpit avec votre voix et des boutons</p>
+            <p data-i18n="footerText">MSFS 2024 Copilot Assistant - Contrôlez votre cockpit avec votre voix et des boutons</p>
         </footer>
     </div>
 
     <!-- Scripts -->
+    <script src="js/i18n.js"></script>
     <script src="js/websocket.js"></script>
     <script src="js/voice.js"></script>
     <script src="js/app.js"></script>

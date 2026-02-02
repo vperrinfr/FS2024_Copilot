@@ -38,6 +38,56 @@ class SimConnectManager {
         heading: 0,
         airspeed: 0,
         vertical_speed: 0
+      },
+      fuel: {
+        total_quantity: 0,
+        total_capacity: 0,
+        total_weight: 0,
+        flow_rate: 0,
+        remaining_time: 0
+      },
+      engines: {
+        count: 0,
+        engine1: {
+          running: false,
+          rpm: 0,
+          n1: 0,
+          n2: 0,
+          egt: 0,
+          oil_temp: 0,
+          oil_pressure: 0,
+          fuel_flow: 0
+        },
+        engine2: {
+          running: false,
+          rpm: 0,
+          n1: 0,
+          n2: 0,
+          egt: 0,
+          oil_temp: 0,
+          oil_pressure: 0,
+          fuel_flow: 0
+        },
+        engine3: {
+          running: false,
+          rpm: 0,
+          n1: 0,
+          n2: 0,
+          egt: 0,
+          oil_temp: 0,
+          oil_pressure: 0,
+          fuel_flow: 0
+        },
+        engine4: {
+          running: false,
+          rpm: 0,
+          n1: 0,
+          n2: 0,
+          egt: 0,
+          oil_temp: 0,
+          oil_pressure: 0,
+          fuel_flow: 0
+        }
       }
     };
   }
@@ -105,7 +155,50 @@ class SimConnectManager {
         'PLANE ALTITUDE',
         'PLANE HEADING DEGREES TRUE',
         'AIRSPEED INDICATED',
-        'VERTICAL SPEED'
+        'VERTICAL SPEED',
+        // Fuel data
+        'FUEL TOTAL QUANTITY',
+        'FUEL TOTAL CAPACITY',
+        'FUEL TOTAL WEIGHT',
+        'FUEL FLOW GPH',
+        // Engine count
+        'NUMBER OF ENGINES',
+        // Engine 1
+        'GENERAL ENG COMBUSTION:1',
+        'GENERAL ENG RPM:1',
+        'TURB ENG N1:1',
+        'TURB ENG N2:1',
+        'ENG EXHAUST GAS TEMPERATURE:1',
+        'ENG OIL TEMPERATURE:1',
+        'ENG OIL PRESSURE:1',
+        'ENG FUEL FLOW GPH:1',
+        // Engine 2
+        'GENERAL ENG COMBUSTION:2',
+        'GENERAL ENG RPM:2',
+        'TURB ENG N1:2',
+        'TURB ENG N2:2',
+        'ENG EXHAUST GAS TEMPERATURE:2',
+        'ENG OIL TEMPERATURE:2',
+        'ENG OIL PRESSURE:2',
+        'ENG FUEL FLOW GPH:2',
+        // Engine 3
+        'GENERAL ENG COMBUSTION:3',
+        'GENERAL ENG RPM:3',
+        'TURB ENG N1:3',
+        'TURB ENG N2:3',
+        'ENG EXHAUST GAS TEMPERATURE:3',
+        'ENG OIL TEMPERATURE:3',
+        'ENG OIL PRESSURE:3',
+        'ENG FUEL FLOW GPH:3',
+        // Engine 4
+        'GENERAL ENG COMBUSTION:4',
+        'GENERAL ENG RPM:4',
+        'TURB ENG N1:4',
+        'TURB ENG N2:4',
+        'ENG EXHAUST GAS TEMPERATURE:4',
+        'ENG OIL TEMPERATURE:4',
+        'ENG OIL PRESSURE:4',
+        'ENG FUEL FLOW GPH:4'
       ]);
     } catch (error) {
       // Silently fail if data request fails
@@ -170,6 +263,136 @@ class SimConnectManager {
       }
       if (data['VERTICAL SPEED'] !== undefined) {
         this.cockpitState.aircraft.vertical_speed = data['VERTICAL SPEED'];
+      }
+
+      // Fuel data
+      if (data['FUEL TOTAL QUANTITY'] !== undefined) {
+        this.cockpitState.fuel.total_quantity = data['FUEL TOTAL QUANTITY'];
+      }
+      if (data['FUEL TOTAL CAPACITY'] !== undefined) {
+        this.cockpitState.fuel.total_capacity = data['FUEL TOTAL CAPACITY'];
+      }
+      if (data['FUEL TOTAL WEIGHT'] !== undefined) {
+        this.cockpitState.fuel.total_weight = data['FUEL TOTAL WEIGHT'];
+      }
+      if (data['FUEL FLOW GPH'] !== undefined) {
+        this.cockpitState.fuel.flow_rate = data['FUEL FLOW GPH'];
+      }
+      // Calculate remaining time
+      if (this.cockpitState.fuel.flow_rate > 0) {
+        this.cockpitState.fuel.remaining_time =
+          (this.cockpitState.fuel.total_quantity / this.cockpitState.fuel.flow_rate) * 60;
+      } else {
+        this.cockpitState.fuel.remaining_time = 0;
+      }
+
+      // Engine count
+      if (data['NUMBER OF ENGINES'] !== undefined) {
+        this.cockpitState.engines.count = data['NUMBER OF ENGINES'];
+      }
+
+      // Engine 1
+      if (data['GENERAL ENG COMBUSTION:1'] !== undefined) {
+        this.cockpitState.engines.engine1.running = data['GENERAL ENG COMBUSTION:1'] === 1;
+      }
+      if (data['GENERAL ENG RPM:1'] !== undefined) {
+        this.cockpitState.engines.engine1.rpm = data['GENERAL ENG RPM:1'];
+      }
+      if (data['TURB ENG N1:1'] !== undefined) {
+        this.cockpitState.engines.engine1.n1 = data['TURB ENG N1:1'];
+      }
+      if (data['TURB ENG N2:1'] !== undefined) {
+        this.cockpitState.engines.engine1.n2 = data['TURB ENG N2:1'];
+      }
+      if (data['ENG EXHAUST GAS TEMPERATURE:1'] !== undefined) {
+        this.cockpitState.engines.engine1.egt = data['ENG EXHAUST GAS TEMPERATURE:1'];
+      }
+      if (data['ENG OIL TEMPERATURE:1'] !== undefined) {
+        this.cockpitState.engines.engine1.oil_temp = data['ENG OIL TEMPERATURE:1'];
+      }
+      if (data['ENG OIL PRESSURE:1'] !== undefined) {
+        this.cockpitState.engines.engine1.oil_pressure = data['ENG OIL PRESSURE:1'];
+      }
+      if (data['ENG FUEL FLOW GPH:1'] !== undefined) {
+        this.cockpitState.engines.engine1.fuel_flow = data['ENG FUEL FLOW GPH:1'];
+      }
+
+      // Engine 2
+      if (data['GENERAL ENG COMBUSTION:2'] !== undefined) {
+        this.cockpitState.engines.engine2.running = data['GENERAL ENG COMBUSTION:2'] === 1;
+      }
+      if (data['GENERAL ENG RPM:2'] !== undefined) {
+        this.cockpitState.engines.engine2.rpm = data['GENERAL ENG RPM:2'];
+      }
+      if (data['TURB ENG N1:2'] !== undefined) {
+        this.cockpitState.engines.engine2.n1 = data['TURB ENG N1:2'];
+      }
+      if (data['TURB ENG N2:2'] !== undefined) {
+        this.cockpitState.engines.engine2.n2 = data['TURB ENG N2:2'];
+      }
+      if (data['ENG EXHAUST GAS TEMPERATURE:2'] !== undefined) {
+        this.cockpitState.engines.engine2.egt = data['ENG EXHAUST GAS TEMPERATURE:2'];
+      }
+      if (data['ENG OIL TEMPERATURE:2'] !== undefined) {
+        this.cockpitState.engines.engine2.oil_temp = data['ENG OIL TEMPERATURE:2'];
+      }
+      if (data['ENG OIL PRESSURE:2'] !== undefined) {
+        this.cockpitState.engines.engine2.oil_pressure = data['ENG OIL PRESSURE:2'];
+      }
+      if (data['ENG FUEL FLOW GPH:2'] !== undefined) {
+        this.cockpitState.engines.engine2.fuel_flow = data['ENG FUEL FLOW GPH:2'];
+      }
+
+      // Engine 3
+      if (data['GENERAL ENG COMBUSTION:3'] !== undefined) {
+        this.cockpitState.engines.engine3.running = data['GENERAL ENG COMBUSTION:3'] === 1;
+      }
+      if (data['GENERAL ENG RPM:3'] !== undefined) {
+        this.cockpitState.engines.engine3.rpm = data['GENERAL ENG RPM:3'];
+      }
+      if (data['TURB ENG N1:3'] !== undefined) {
+        this.cockpitState.engines.engine3.n1 = data['TURB ENG N1:3'];
+      }
+      if (data['TURB ENG N2:3'] !== undefined) {
+        this.cockpitState.engines.engine3.n2 = data['TURB ENG N2:3'];
+      }
+      if (data['ENG EXHAUST GAS TEMPERATURE:3'] !== undefined) {
+        this.cockpitState.engines.engine3.egt = data['ENG EXHAUST GAS TEMPERATURE:3'];
+      }
+      if (data['ENG OIL TEMPERATURE:3'] !== undefined) {
+        this.cockpitState.engines.engine3.oil_temp = data['ENG OIL TEMPERATURE:3'];
+      }
+      if (data['ENG OIL PRESSURE:3'] !== undefined) {
+        this.cockpitState.engines.engine3.oil_pressure = data['ENG OIL PRESSURE:3'];
+      }
+      if (data['ENG FUEL FLOW GPH:3'] !== undefined) {
+        this.cockpitState.engines.engine3.fuel_flow = data['ENG FUEL FLOW GPH:3'];
+      }
+
+      // Engine 4
+      if (data['GENERAL ENG COMBUSTION:4'] !== undefined) {
+        this.cockpitState.engines.engine4.running = data['GENERAL ENG COMBUSTION:4'] === 1;
+      }
+      if (data['GENERAL ENG RPM:4'] !== undefined) {
+        this.cockpitState.engines.engine4.rpm = data['GENERAL ENG RPM:4'];
+      }
+      if (data['TURB ENG N1:4'] !== undefined) {
+        this.cockpitState.engines.engine4.n1 = data['TURB ENG N1:4'];
+      }
+      if (data['TURB ENG N2:4'] !== undefined) {
+        this.cockpitState.engines.engine4.n2 = data['TURB ENG N2:4'];
+      }
+      if (data['ENG EXHAUST GAS TEMPERATURE:4'] !== undefined) {
+        this.cockpitState.engines.engine4.egt = data['ENG EXHAUST GAS TEMPERATURE:4'];
+      }
+      if (data['ENG OIL TEMPERATURE:4'] !== undefined) {
+        this.cockpitState.engines.engine4.oil_temp = data['ENG OIL TEMPERATURE:4'];
+      }
+      if (data['ENG OIL PRESSURE:4'] !== undefined) {
+        this.cockpitState.engines.engine4.oil_pressure = data['ENG OIL PRESSURE:4'];
+      }
+      if (data['ENG FUEL FLOW GPH:4'] !== undefined) {
+        this.cockpitState.engines.engine4.fuel_flow = data['ENG FUEL FLOW GPH:4'];
       }
     } catch (error) {
       console.error('Error updating cockpit state:', error.message);
